@@ -1,0 +1,155 @@
+<%- include('../Partials/Header')%>
+    <div class="container">
+        <form action="" method="post" id="form">
+            <h3 class="text-danger  text-center mb-3">Edits Book</h3>
+            <div class="d-flex align-items-center justify-content-between ">
+                <div class="col-4">
+                    <div class="d-flex justify-content-between">
+                        <label for="" class="text-secondary">ID :</label>
+                        <p class="text-danger m-0" id="bookidError"></p>
+                    </div>
+                    <input type="number" name="bookid" class="form-control" placeholder="Enter Book ID" value="<%=book.bookid%>">
+                </div>
+                <div class="col-8 ">
+                    <div class="ms-3">
+                        <div class="d-flex justify-content-between">
+                            <label for="" class="text-secondary">Book Title :</label>
+                            <p class="text-danger m-0" id="nameError"></p>
+                        </div>
+                        <input type="text" name="title" class="form-control" placeholder="Enter Book Title" value="<%=book.title%>">
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center  mt-2 col-12 ">
+                <div class="col-4">
+                    <div class="d-flex">
+                        <label for="dropdown" class="text-secondary me-3">Type :</label>
+                        <p class="text-danger m-0 ms-4" id="typeError"></p>
+                    </div>
+                    <select id="dropdown" class="form-control" name="booktype">
+                        <option value="--Select Type--" <% if (book.booktype==='--Select Type--' ) { %>selected<% }
+                                %>>--Select Type--</option>
+                        <option value="Novels" <% if (book.booktype==='Novels' ) { %>selected<% } %>>Novels</option>
+                        <option value="Short Stories" <% if (book.booktype==='Short Stories' ) { %>selected<% } %>>Short Stories</option>
+                        <option value="History"<% if (book.booktype==='History' ) { %>selected<% } %>>History</option>
+                        <option value="Science and Nature"<% if (book.booktype==='Science and Nature' ) { %>selected<% } %>>Science and Nature</option>
+                        <option value="Books on Coding"<% if (book.booktype==='Books on Coding' ) { %>selected<% } %>>Books on Coding</option>
+                        <option value="Classic Poetry"<% if (book.booktype==='Classic Poetry' ) { %>selected<% } %>>Classic Poetry</option>
+                        <option value="Tech Magazines"<% if (book.booktype==='Tech Magazines' ) { %>selected<% } %>>Tech Magazines</option>
+                        <option value="Food Magazines"<% if (book.booktype==='Food Magazines' ) { %>selected<% } %>>Food Magazines</option>
+                        <option value="Fashion and Lifestyle Magazines"<% if (book.booktype==='Fashion and Lifestyle Magazines' ) { %>selected<% } %>>Fashion and Lifestyle Magazines</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <div class="ms-3">
+                        <div class="d-flex justify-content-between ">
+                            <label for="" class="text-secondary">Stock :</label>
+                            <p class="text-danger m-0" id="stockError"></p>
+                        </div>
+                        <input type="number" name="stock" class="form-control" placeholder="Available Qty" value="<%=book.stock%>">
+                    </div>
+                </div>
+                <div class="col-4 ">
+                    <div class="ms-3">
+                        <div class="d-flex justify-content-between ms-3">
+                            <label for="" class="text-secondary">Price :</label>
+                            <p class="text-danger m-0" id="priceError"></p>
+                        </div>
+                        <input type="number" name="price" class="form-control" placeholder="Price of Book" value="<%=book.price%>">
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-between mt-2 col-12">
+                <div class="col-6">
+                    <div class="d-flex justify-content-between">
+                        <label for="" class="text-secondary">Book Launched Date:</label>
+                        <p class="text-danger m-0" id="dateError"></p>
+                    </div>
+                    <input type="date" name="publishdate" class="form-control" value="<%=book.publishdate.toISOString().split('T')[0]%>">
+                </div>
+                <div class="col-6 ">
+                    <div class="ms-3">
+                    <div class="d-flex justify-content-between">
+                        <label for="" class="text-secondary">Author :</label>
+                        <p class="text-danger m-0" id="authorError"></p>
+                    </div>
+                    <input type="text" name="author" class="form-control" placeholder="Book's Author" value="<%=book.author%>">
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-outline-dark mt-2 text-center">Submit</button>
+            </div>
+        </form>
+    </div>
+    <%- include('../Partials/Footer')%>
+    <script>
+        const form = document.querySelector('#form');
+    
+        form.addEventListener('submit', function(event) {
+            const bookid = document.querySelector('input[name="bookid"]').value;
+            const title = document.querySelector('input[name="title"]').value;
+            const booktype = document.querySelector('select[name="booktype"]').value;
+            const stock = document.querySelector('input[name="stock"]').value;
+            const price = document.querySelector('input[name="price"]').value;
+            const publishdate = document.querySelector('input[name="publishdate"]').value;
+            const author = document.querySelector('input[name="author"]').value;
+    
+            let isValid = true;
+    
+            if (bookid === '') {
+                document.getElementById('bookidError').innerText = 'Book ID is required';
+                isValid = false;
+            } else {
+                document.getElementById('bookidError').innerText = '';
+            }
+    
+            if (title === '') {
+                document.getElementById('nameError').innerText = 'Book Title is required';
+                isValid = false;
+            } else {
+                document.getElementById('nameError').innerText = '';
+            }
+    
+            if (booktype === '--Select Type--') {
+                document.getElementById('typeError').innerText = 'Book Type is required';
+                isValid = false;
+            } else {
+                document.getElementById('typeError').innerText = '';
+            }
+    
+            if (stock === '') {
+                document.getElementById('stockError').innerText = 'Stock is required';
+                isValid = false;
+            } else {
+                document.getElementById('stockError').innerText = '';
+            }
+    
+            if (price === '') {
+                document.getElementById('priceError').innerText = 'Price is required';
+                isValid = false;
+            } else {
+                document.getElementById('priceError').innerText = '';
+            }
+    
+            if (publishdate === '') {
+                document.getElementById('dateError').innerText = 'Publish Date is required';
+                isValid = false;
+            } else {
+                document.getElementById('dateError').innerText = '';
+            }
+    
+            if (author === '') {
+                document.getElementById('authorError').innerText = 'Author is required';
+                isValid = false;
+            } else {
+                document.getElementById('authorError').innerText = '';
+            }
+    
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission if there are validation errors
+            }
+        });
+    </script>
+    

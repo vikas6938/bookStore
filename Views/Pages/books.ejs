@@ -1,0 +1,64 @@
+<%- include('../Partials/Header')%>
+    <div class="container mt-3 ">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h3 class="text-warning  text-center mb-3">List of Books</h3>
+            <a href="/addbook" class="btn btn-success ">Add
+                Book</a>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Sr.</th>
+                    <th>Book ID</th>
+                    <th>Title</th>
+                    <th>Type</th>
+                    <th>Stock</th>
+                    <th>Price</th>
+                    <th>Published @</th>
+                    <th>Author</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% book.forEach((book,id)=> {%>
+                    <tr>
+                        <td>
+                            <%=id + 1%>
+                        </td>
+                        <td>
+                            <%=book.bookid%>
+                        </td>
+                        <td>
+                            <%=book.title%>
+                        </td>
+                        <td>
+                            <%=book.booktype%>
+                        </td>
+                        <td>
+                            <%=book.stock%>
+                        </td>
+                        <td>
+                            <%=book.price%>
+                        </td>
+                        <td>
+                            <% const publishDate=new Date(book.publishdate); const
+                                day=publishDate.getDate().toString().padStart(2, '0' ); const
+                                month=(publishDate.getMonth() + 1).toString().padStart(2, '0' ); // Month is zero-based
+                                const year=publishDate.getFullYear(); const
+                                formattedPublishDate=`${day}/${month}/${year}`; %>
+                                <%= formattedPublishDate %>
+                        </td>
+                        <td>
+                            <%=book.author%>
+                        </td>
+                        <td>
+                            <a href="/edit/<%= book._id %>" class="btn btn-outline-success">Edit</a>
+                            <a href="/delete/<%= book._id %>" class="btn btn-outline-warning">Delete</a>
+                        </td>
+                    </tr>
+                    <%})%>
+            </tbody>
+        </table>
+    </div>
+    <%- include('../Partials/Footer')%>
